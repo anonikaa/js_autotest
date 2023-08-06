@@ -1,0 +1,24 @@
+{
+  "name": "kb-playwright-tests",
+  "version": "1.0.0",
+  "description": "An automation test framework which is based on playwright.",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Nastya",
+  "license": "ISC",
+  "jest": {
+    "testMatch": [
+      "**/tests/**/*.[jt]s?(x)",
+      "**/?(*.)+(spec|test).[jt]s?(x)"
+    ],
+    "reporters": [
+      "default",
+      "jest-html-reporters"
+    ]
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.36.2",
+    "jest-html-reporters": "^2.1.0",
+    "jest-playwright-preset": "^1.4.0"
+  }
+}
