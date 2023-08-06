@@ -9,10 +9,6 @@ const {
   PersonalInformationWidget,
 } = require("../pages/personal-information-widget");
 
-// test.afterAll(async ({ page }) => {
-//   page.close();
-// });
-
 test.describe.parallel("My Tests", () => {
   test("unsuccessful donation", async ({ page }) => {
     const startedPage = new StartedPage(page);
