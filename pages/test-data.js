@@ -9,6 +9,7 @@ exports.TestData = class TestData {
     this.firstName = "Hello";
     this.lastName = "Mr. Reviewer";
     this.email = "anonikaa@gmail.com";
+    this.errorTooltipTitle = "Your card was declined";
   }
   method() {
     return `${this.price} / ${this.cardNumber} / ${this.expireDate} / ${this.cvc} / ${this.firstName} /

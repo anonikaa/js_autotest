@@ -12,72 +12,73 @@ const {
 // test.afterAll(async ({ page }) => {
 //   page.close();
 // });
-test.describe.configure({ mode: "parallel" });
 
-test("unsuccessful donation", async ({ page }) => {
-  const startedPage = new StartedPage(page);
-  const donationOptionWidget = new DonationOptionWidget(page);
-  const paymentOptionWidget = new PaymentOptionWidget(page);
-  const testData = new TestData();
-  const creditCardWidget = new CreditCardWidget(page);
-  const personalInformationWidget = new PersonalInformationWidget(page);
+test.describe.parallel("My Tests", () => {
+  test("unsuccessful donation", async ({ page }) => {
+    const startedPage = new StartedPage(page);
+    const donationOptionWidget = new DonationOptionWidget(page);
+    const paymentOptionWidget = new PaymentOptionWidget(page);
+    const testData = new TestData();
+    const creditCardWidget = new CreditCardWidget(page);
+    const personalInformationWidget = new PersonalInformationWidget(page);
 
-  await startedPage.goto();
-  await startedPage.clickGiveNowButton();
+    await startedPage.goto();
+    await startedPage.clickGiveNowButton();
 
-  await donationOptionWidget.clickMonthlyButton();
-  await donationOptionWidget.chooseUSDCurrency();
-  await donationOptionWidget.inputPrice(testData.price);
-  await donationOptionWidget.clickDonateMonthlyButton();
+    await donationOptionWidget.clickMonthlyButton();
+    await donationOptionWidget.chooseUSDCurrency();
+    await donationOptionWidget.inputPrice(testData.price);
+    await donationOptionWidget.clickDonateMonthlyButton();
 
-  await paymentOptionWidget.uncheckCoverTransactionCostCheckbox();
-  await paymentOptionWidget.clickCreditCardButton();
+    await paymentOptionWidget.uncheckCoverTransactionCostCheckbox();
+    await paymentOptionWidget.clickCreditCardButton();
 
-  await creditCardWidget.inputCreditCardNumber(testData.cardNumber);
-  await creditCardWidget.inputExpireCardDate(testData.expireDate);
-  await creditCardWidget.inputCvc(testData.cvc);
-  await creditCardWidget.cickContinueButton();
+    await creditCardWidget.inputCreditCardNumber(testData.cardNumber);
+    await creditCardWidget.inputExpireCardDate(testData.expireDate);
+    await creditCardWidget.inputCvc(testData.cvc);
+    await creditCardWidget.cickContinueButton();
 
-  await personalInformationWidget.inputValidFirstName(testData.firstName);
-  await personalInformationWidget.inputValidLastName(testData.lastName);
-  await personalInformationWidget.inputValidEmail(testData.email);
-  await personalInformationWidget.clickDonateMainButton();
+    await personalInformationWidget.inputValidFirstName(testData.firstName);
+    await personalInformationWidget.inputValidLastName(testData.lastName);
+    await personalInformationWidget.inputValidEmail(testData.email);
+    await personalInformationWidget.clickDonateMainButton();
 
-  expect(creditCardWidget.declinedCardErrorTooltip).toBeVisible;
-  await expect(creditCardWidget.declinedCardErrorTooltip).toContainText(
-    "Your card was declined"
-  );
-});
-test("second unsuccessful donation", async ({ page }) => {
-  const startedPage = new StartedPage(page);
-  const donationOptionWidget = new DonationOptionWidget(page);
-  const paymentOptionWidget = new PaymentOptionWidget(page);
-  const testData = new TestData();
-  const creditCardWidget = new CreditCardWidget(page);
-  const personalInformationWidget = new PersonalInformationWidget(page);
+    expect(creditCardWidget.declinedCardErrorTooltip).toBeVisible;
+    await expect(creditCardWidget.declinedCardErrorTooltip).toContainText(
+      testData.errorTooltipTitle
+    );
+  });
+  test("second unsuccessful donation", async ({ page }) => {
+    const startedPage = new StartedPage(page);
+    const donationOptionWidget = new DonationOptionWidget(page);
+    const paymentOptionWidget = new PaymentOptionWidget(page);
+    const testData = new TestData();
+    const creditCardWidget = new CreditCardWidget(page);
+    const personalInformationWidget = new PersonalInformationWidget(page);
 
-  await startedPage.goto();
-  await startedPage.clickGiveNowButton();
+    await startedPage.goto();
+    await startedPage.clickGiveNowButton();
 
-  await donationOptionWidget.clickMonthlyButton();
-  await donationOptionWidget.chooseUSDCurrency();
-  await donationOptionWidget.inputPrice(testData.price);
-  await donationOptionWidget.clickDonateMonthlyButton();
+    await donationOptionWidget.clickMonthlyButton();
+    await donationOptionWidget.chooseUSDCurrency();
+    await donationOptionWidget.inputPrice(testData.price);
+    await donationOptionWidget.clickDonateMonthlyButton();
 
-  await paymentOptionWidget.uncheckCoverTransactionCostCheckbox();
-  await paymentOptionWidget.clickCreditCardButton();
-  await creditCardWidget.inputCreditCardNumber(testData.cardNumber);
-  await creditCardWidget.inputExpireCardDate(testData.expireDate);
-  await creditCardWidget.inputCvc(testData.cvc);
-  await creditCardWidget.cickContinueButton();
+    await paymentOptionWidget.uncheckCoverTransactionCostCheckbox();
+    await paymentOptionWidget.clickCreditCardButton();
+    await creditCardWidget.inputCreditCardNumber(testData.cardNumber);
+    await creditCardWidget.inputExpireCardDate(testData.expireDate);
+    await creditCardWidget.inputCvc(testData.cvc);
+    await creditCardWidget.cickContinueButton();
 
-  await personalInformationWidget.inputValidFirstName(testData.firstName);
-  await personalInformationWidget.inputValidLastName(testData.lastName);
-  await personalInformationWidget.inputValidEmail(testData.email);
-  await personalInformationWidget.clickDonateMainButton();
+    await personalInformationWidget.inputValidFirstName(testData.firstName);
+    await personalInformationWidget.inputValidLastName(testData.lastName);
+    await personalInformationWidget.inputValidEmail(testData.email);
+    await personalInformationWidget.clickDonateMainButton();
 
-  expect(creditCardWidget.declinedCardErrorTooltip).toBeVisible;
-  await expect(creditCardWidget.declinedCardErrorTooltip).toContainText(
-    "Your card was declined"
-  );
+    expect(creditCardWidget.declinedCardErrorTooltip).toBeVisible;
+    await expect(creditCardWidget.declinedCardErrorTooltip).toContainText(
+      testData.errorTooltipTitle
+    );
+  });
 });
